@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block title %}Lecturas de medidores{% endblock %}
+{% block content %}
+
+  <h2>Registrar lecturas de los medidores</h2>
+
+  {% if error %}
+    <div class="flash error">{{ error }}</div>
+  {% endif %}
+
+  {% if periodos %}
+  <form method="post" class="form-registro">
+    <label>Período (solo abiertos)
+      <select name="id_periodo" required>
+        {% for p in periodos %}
+          <option value="{{ p.id_periodo }}" {% if periodo_sel|string == p.id_periodo|string %}selected{% endif %}>{{ p|periodo }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Unidad y medidor
+      <select name="id_medidor" required>
+        <option value="">Seleccione…</option>
+        {% for m in medidores %}
+          <option value="{{ m.id_medidor }}" {% if form.get('id_medidor')|string == m.id_medidor|string %}selected{% endif %}>
+            {{ m.codigo_unidad }} — {{ m.numero_serie }}
+          </option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Lectura inicial (kWh)
+      <input type="text" inputmode="decimal" name="lectura_inicial" value="{{ form.get('lectura_inicial', '') }}" required>
+    </label>
+    <label>Lectura final (kWh)
+      <input type="text" inputmode="decimal" name="lectura_final" value="{{ form.get('lectura_final', '') }}" required>
+    </label>
+    <button type="submit">Guardar lectura</button>
+  </form>
+  {% else %}
+    <p class="nota">No hay períodos abiertos para registrar lecturas.</p>
+  {% endif %}
+
+  {% if periodos %}
+  <form method="get" class="filtro-form">
+    <label>Ver lecturas de:
+      <select name="periodo" onchange="this.form.submit()">
+        {% for p in periodos %}
+          <option value="{{ p.id_periodo }}" {% if periodo_sel|string == p.id_periodo|string %}selected{% endif %}>{{ p|periodo }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  </form>
+  {% endif %}
+
+  <table>
+    <thead>
+      <tr>
+        <th>Unidad</th>
+        <th>Medidor</th>
+        <th>Lectura inicial (kWh)</th>
+        <th>Lectura final (kWh)</th>
+        <th>Consumo (kWh)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in registros %}
+      <tr>
+        <td>{{ r.codigo_unidad }}</td>
+        <td>{{ r.numero_serie }}</td>
+        <td>{{ r.lectura_inicial_kwh|kwh }}</td>
+        <td>{{ r.lectura_final_kwh|kwh }}</td>
+        <td><strong>{{ r.consumo_kwh|kwh }}</strong></td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5">No hay lecturas registradas en este período.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

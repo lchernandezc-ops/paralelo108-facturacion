@@ -1,0 +1,161 @@
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f9;
+  color: #1f2d3d;
+}
+
+.topbar {
+  background: #1f3864;
+  color: white;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.topbar h1 { margin: 0; font-size: 20px; }
+
+.topbar nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 600;
+}
+
+.topbar nav a:hover { text-decoration: underline; }
+
+main {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+h2 { color: #2f5496; }
+
+.filtro-form {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.filtro-form input {
+  padding: 6px 8px;
+  width: 90px;
+}
+
+.filtro-form button {
+  background: #2f5496;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e6ea;
+}
+
+th {
+  background: #2f5496;
+  color: white;
+}
+
+tr:hover { background: #f0f4fa; }
+
+.badge {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+}
+.badge.pagada { background: #2e7d32; }
+.badge.emitida { background: #f9a825; }
+.badge.vencida { background: #c62828; }
+.badge.anulada { background: #757575; }
+
+.flash {
+  padding: 10px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.flash.success { background: #d4edda; color: #155724; }
+.flash.error { background: #f8d7da; color: #721c24; }
+
+footer {
+  text-align: center;
+  color: #888;
+  font-size: 13px;
+  padding: 20px;
+}
+
+/* ---- Sprint 1: formularios de registro y liquidación ---- */
+h3 { color: #2f5496; margin-top: 32px; }
+
+.form-registro {
+  background: white;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.form-registro label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 600;
+  gap: 6px;
+}
+
+.form-registro input,
+.form-registro select,
+.filtro-form select {
+  padding: 7px 8px;
+  border: 1px solid #c3cbd5;
+  border-radius: 4px;
+  font-size: 14px;
+  min-width: 170px;
+}
+
+.form-registro button,
+.btn-principal {
+  background: #2f5496;
+  color: white;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-secundario {
+  background: white;
+  color: #2f5496;
+  border: 1px solid #2f5496;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.nota { color: #55606e; font-size: 14px; }
+
+.badge.pendiente { background: #9e9e9e; }

@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}Resumen de Facturación{% endblock %}
+{% block content %}
+
+  <h2>Resumen de Facturación por Período</h2>
+
+  <form method="get" class="filtro-form">
+    <label>Año:
+      <input type="number" name="anio" value="{{ anio }}">
+    </label>
+    <label>Mes:
+      <input type="number" name="mes" value="{{ mes }}" min="1" max="12">
+    </label>
+    <button type="submit">Consultar</button>
+  </form>
+
+  {% if error %}
+    <div class="flash error">{{ error }}</div>
+  {% endif %}
+
+  <table>
+    <thead>
+      <tr>
+        <th>Unidad</th>
+        <th>Propietario</th>
+        <th>Consumo (kWh)</th>
+        <th>kWh Solar Asignados</th>
+        <th>Descuento (COP)</th>
+        <th>Valor Bruto (COP)</th>
+        <th>Valor Neto (COP)</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in registros %}
+      <tr>
+        <td>{{ r.codigo_unidad }}</td>
+        <td>{{ r.nombre_propietario }}</td>
+        <td>{{ r.consumo_kwh }}</td>
+        <td>{{ r.kwh_solar_asignados }}</td>
+        <td>{{ r.descuento_cop|cop }}</td>
+        <td>{{ r.valor_bruto_cop|cop }}</td>
+        <td>{{ r.valor_neto_cop|cop }}</td>
+        <td>{% if r.estado_factura %}<span class="badge {{ r.estado_factura|lower }}">{{ r.estado_factura }}</span>{% else %}<span class="badge pendiente">SIN FACTURA</span>{% endif %}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="8">No hay registros para el período seleccionado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

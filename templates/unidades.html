@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Unidades Privadas{% endblock %}
+{% block content %}
+
+  <h2>Unidades Privadas Registradas</h2>
+
+  {% if error %}
+    <div class="flash error">{{ error }}</div>
+  {% endif %}
+
+  <table>
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Propietario</th>
+        <th>Piso</th>
+        <th>Coeficiente de Participación (%)</th>
+        <th>Activa</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in datos %}
+      <tr>
+        <td>{{ u.codigo_unidad }}</td>
+        <td>{{ u.nombre_propietario }}</td>
+        <td>{{ u.piso }}</td>
+        <td>{{ u.coeficiente_participacion }}</td>
+        <td>{{ "Sí" if u.activa else "No" }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5">No hay unidades registradas.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

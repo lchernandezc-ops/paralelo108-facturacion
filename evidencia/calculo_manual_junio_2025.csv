@@ -1,0 +1,12 @@
+﻿# Cálculo manual de referencia - Liquidación junio 2025 (período de prueba del Sprint 1)
+# Lecturas tal como se registraron en la aplicación el 22/10/2026
+# Energía generada: 3120 kWh; tarifa: 862,30 COP/kWh
+# kWh asignados = energía × coeficiente / 100; descuento = kWh asignados × tarifa
+# valor bruto = consumo × tarifa; valor neto = valor bruto − descuento
+unidad;coeficiente_%;lectura_inicial_kwh;lectura_final_kwh;consumo_kwh;kwh_solar_asignados;descuento_cop;valor_bruto_cop;valor_neto_cop
+P108-101;8,5;14600;15031,8;431,800;265,200;228681,96;372341,14;143659,18
+P108-201;12,3;9950;10352,6;402,600;383,760;330916,25;347161,98;16245,73
+P108-202;10;6890,5;7279,65;389,150;312,000;269037,60;335564,05;66526,45
+P108-301;9,75;11870;12290;420,000;304,200;262311,66;362166,00;99854,34
+P108-401;11,2;9120;9518,4;398,400;349,440;301322,11;343540,32;42218,21
+TOTAL;;;;;;1392269,58;1760773,49;368503,91

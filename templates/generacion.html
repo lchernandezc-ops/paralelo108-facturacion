@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block title %}Generación solar{% endblock %}
+{% block content %}
+
+  <h2>Registrar la generación solar del período</h2>
+
+  {% if error %}
+    <div class="flash error">{{ error }}</div>
+  {% endif %}
+
+  {% if periodos %}
+  <form method="post" class="form-registro">
+    <label>Período
+      <select name="id_periodo" required>
+        <option value="">Seleccione…</option>
+        {% for p in periodos %}
+          <option value="{{ p.id_periodo }}" {% if form.get('id_periodo')|string == p.id_periodo|string %}selected{% endif %}>
+            {{ p|periodo }} ({{ p.estado }})
+          </option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Energía generada (kWh)
+      <input type="text" inputmode="decimal" name="energia_kwh" value="{{ form.get('energia_kwh', '') }}" placeholder="2850.000" required>
+    </label>
+    <label>Tarifa del kWh (COP)
+      <input type="text" inputmode="decimal" name="tarifa_cop" value="{{ form.get('tarifa_cop', '') }}" placeholder="850.50" required>
+    </label>
+    <button type="submit">Guardar generación</button>
+  </form>
+  <p class="nota">Solo aparecen los períodos que no están liquidados y aún no tienen generación registrada (un registro por período).</p>
+  {% else %}
+    <p class="nota">No hay períodos pendientes de registrar generación solar.</p>
+  {% endif %}
+
+  <h3>Generación registrada</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Período</th>
+        <th>Estado</th>
+        <th>Energía (kWh)</th>
+        <th>Tarifa (COP/kWh)</th>
+        <th>Valor total generado (COP)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in registros %}
+      <tr>
+        <td>{{ r|periodo }}</td>
+        <td>{{ r.estado }}</td>
+        <td>{{ r.energia_generada_kwh|kwh }}</td>
+        <td>{{ r.valor_kwh_cop|cop }}</td>
+        <td>{{ r.valor_total_generado_cop|cop }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5">Aún no hay generación registrada.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

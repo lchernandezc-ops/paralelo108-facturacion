@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}Liquidación de períodos{% endblock %}
+{% block content %}
+
+  <h2>Liquidar período: descuentos y facturas</h2>
+
+  {% if error %}
+    <div class="flash error">{{ error }}</div>
+  {% endif %}
+
+  <p class="nota">Para liquidar, el período debe tener la generación solar registrada y lecturas de todas las unidades activas.
+  La liquidación calcula el descuento solar de cada unidad (energía generada × coeficiente / 100 × tarifa),
+  genera su factura interna (consumo × tarifa − descuento) y deja el período en estado LIQUIDADO.
+  Liquidar de nuevo recalcula sin duplicar.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Período</th>
+        <th>Estado</th>
+        <th>Generación solar</th>
+        <th>Lecturas</th>
+        <th>Facturas</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in periodos %}
+      <tr>
+        <td>{{ p|periodo }}</td>
+        <td>{{ p.estado }}</td>
+        <td>{{ "Registrada" if p.tiene_gen else "Falta" }}</td>
+        <td>{{ p.unidades_con_lectura }} de {{ p.total_activas }} unidades</td>
+        <td>{{ p.facturas }}</td>
+        <td>
+          <form method="post" action="{{ url_for('liquidar', id_periodo=p.id_periodo) }}"
+                onsubmit="return confirm('¿Liquidar {{ p|periodo }}? Se calcularán los descuentos y las facturas internas.');">
+            <button type="submit" class="{{ 'btn-principal' if p.listo else 'btn-secundario' }}">
+              {{ "Reliquidar" if p.estado == "LIQUIDADO" else "Liquidar período" }}
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6">No hay períodos registrados.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

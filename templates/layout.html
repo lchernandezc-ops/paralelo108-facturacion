@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Paralelo 108 - Facturación Energética{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <h1>⚡ Centro Empresarial Paralelo 108</h1>
+    <nav>
+      <a href="{{ url_for('index') }}">Facturación</a>
+      <a href="{{ url_for('unidades') }}">Unidades Privadas</a>
+      <a href="{{ url_for('lecturas') }}">Lecturas</a>
+      <a href="{{ url_for('generacion') }}">Generación solar</a>
+      <a href="{{ url_for('liquidacion') }}">Liquidación</a>
+    </nav>
+  </header>
+
+  <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>Sistema de Facturación Energética — Ingeniería de Software III — Universidad INCCA de Colombia</p>
+  </footer>
+</body>
+</html>
